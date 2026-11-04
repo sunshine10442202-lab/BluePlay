@@ -1,0 +1,5 @@
+{
+  "//": "The declared app name must follow this pattern to be KRL-compatible",
+  "name": "com.shanjay.blueplay.main",
+  "displayName": "BluePlay"
+}

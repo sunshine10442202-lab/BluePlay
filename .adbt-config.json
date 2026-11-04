@@ -1,0 +1,8 @@
+{
+  "project": {
+    "identifier": "private"
+  },
+  "platform": {
+    "default": "vega_os"
+  }
+}
