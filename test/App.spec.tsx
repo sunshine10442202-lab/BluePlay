@@ -5,16 +5,20 @@ import * as React from 'react';
 import {App} from '../src/App';
 
 describe('App', () => {
-  it('matches snapshot', () => {
+  it('renders the BluePlay home screen', () => {
     const screen = render(<App />);
-    expect(screen).toMatchSnapshot();
+
+    expect(screen.getByText('BLUEPLAY')).toBeTruthy();
+    expect(screen.getByText('WELCOME TO YOUR WORLD')).toBeTruthy();
+    expect(screen.getByText('Everything you love.')).toBeTruthy();
   });
 
-  it('renders all tiles', () => {
+  it('renders the main launcher tiles', () => {
     const screen = render(<App />);
-    expect(screen.getByTestId('tile-home')).toBeTruthy();
-    expect(screen.getByTestId('tile-get-started')).toBeTruthy();
-    expect(screen.getByTestId('tile-debug')).toBeTruthy();
-    expect(screen.getByTestId('tile-learn-more')).toBeTruthy();
+
+    expect(screen.getByTestId('tile-games')).toBeTruthy();
+    expect(screen.getByTestId('tile-apps')).toBeTruthy();
+    expect(screen.getByTestId('tile-media')).toBeTruthy();
+    expect(screen.getByTestId('tile-favourites')).toBeTruthy();
   });
 });
