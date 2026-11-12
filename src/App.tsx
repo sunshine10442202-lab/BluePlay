@@ -10,7 +10,7 @@ import {Tile} from './components/Tile';
 import {tiles} from './data/tiles';
 
 export const App = () => {
-  const [focusedTileId, setFocusedTileId] = useState('games');
+  const [focusedTileId, setFocusedTileId] = useState('youtube');
   const focusedTile = tiles.find(tile => tile.id === focusedTileId);
 
   return (
@@ -23,55 +23,39 @@ export const App = () => {
 
       <View style={styles.page}>
         <View style={styles.topBar}>
-          <Text style={styles.brand}>BLUE<Text style={styles.brandAccent}>PLAY</Text></Text>
-          <View style={styles.nav}>
-            <Text style={styles.navActive}>HOME</Text>
-            <Text style={styles.navItem}>YOUR SPACE</Text>
-          </View>
           <Text style={styles.topTag}>MADE FOR THE BIG SCREEN</Text>
         </View>
 
-        <View style={styles.hero}>
-          <Text style={styles.eyebrow}>WELCOME TO YOUR WORLD</Text>
-          <Text style={styles.heroTitle}>Everything you love.{ '\n' }All in one place.</Text>
-          <Text style={styles.heroCopy}>
-            A smarter home for your entertainment.
-          </Text>
+        <View style={styles.headingRow}>
+          <View>
+            <Text style={styles.heading}>Your apps</Text>
+            <Text style={styles.subheading}>Everything you enjoy, all in one place.</Text>
+          </View>
           <View style={styles.focusPill}>
             <View style={styles.pillDot} />
             <Text style={styles.focusText}>
-              {focusedTile?.description || 'Choose a destination to get started'}
+              {focusedTile?.description || 'Choose an app'}
             </Text>
           </View>
         </View>
 
-        <View style={styles.exploreHeader}>
-          <View>
-            <Text style={styles.sectionTitle}>EXPLORE BLUEPLAY</Text>
-            <Text style={styles.sectionCopy}>Pick up where you want to go</Text>
-          </View>
-          <Text style={styles.remoteHint}>USE YOUR REMOTE TO NAVIGATE</Text>
-        </View>
-
-        <TVFocusGuideView style={styles.tileRow}>
+        <TVFocusGuideView style={styles.tileGrid}>
           {tiles.map(tile => (
             <Tile
               key={tile.id}
               label={tile.label}
-              icon={tile.icon}
+              logo={tile.logo}
               isFocused={focusedTileId === tile.id}
               onFocus={() => setFocusedTileId(tile.id)}
               testID={`tile-${tile.id}`}
               accessibilityLabel={tile.accessibilityLabel}
-              hasTVPreferredFocus={tile.id === 'games'}
+              hasTVPreferredFocus={tile.id === 'youtube'}
             />
           ))}
         </TVFocusGuideView>
 
-        <View style={styles.footer}>
-          <Text style={styles.footerBrand}>BLUEPLAY</Text>
-          <Text style={styles.footerCopy}>YOUR WORLD. YOUR PLAY.</Text>
-          <Text style={styles.footerVersion}>A NEW WAY TO WATCH & PLAY</Text>
+        <View style={styles.remoteHintRow}>
+          <Text style={styles.remoteHint}>USE YOUR REMOTE TO NAVIGATE</Text>
         </View>
       </View>
     </ImageBackground>
@@ -85,7 +69,7 @@ const styles = StyleSheet.create({
   },
   tint: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(3, 10, 27, 0.60)',
+    backgroundColor: 'rgba(3, 10, 27, 0.48)',
   },
   blueGlow: {
     position: 'absolute',
@@ -94,89 +78,53 @@ const styles = StyleSheet.create({
     width: 700,
     height: 500,
     borderRadius: 350,
-    backgroundColor: 'rgba(0, 116, 255, 0.13)',
+    backgroundColor: 'rgba(0, 116, 255, 0.16)',
   },
   page: {
     flex: 1,
     paddingHorizontal: 68,
-    paddingTop: 30,
-    paddingBottom: 22,
+    paddingTop: 34,
+    paddingBottom: 28,
   },
   topBar: {
-    height: 54,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  brand: {
-    color: '#FFFFFF',
-    fontSize: 29,
-    fontWeight: '900',
-    letterSpacing: 3,
-  },
-  brandAccent: {
-    color: '#36A5FF',
-  },
-  nav: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 34,
-  },
-  navActive: {
-    color: '#FFFFFF',
-    fontSize: 14,
-    fontWeight: '800',
-    letterSpacing: 2,
-    borderBottomWidth: 2,
-    borderBottomColor: '#36A5FF',
-    paddingBottom: 8,
-  },
-  navItem: {
-    color: '#9EB7D6',
-    fontSize: 14,
-    fontWeight: '600',
-    letterSpacing: 2,
+    height: 42,
+    alignItems: 'flex-end',
+    justifyContent: 'center',
   },
   topTag: {
-    color: '#8DA8C9',
+    color: '#B7D2F1',
     fontSize: 12,
     letterSpacing: 2,
   },
-  hero: {
-    flex: 1.25,
-    justifyContent: 'center',
-    paddingTop: 16,
+  headingRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
+    marginTop: 24,
+    marginBottom: 26,
   },
-  eyebrow: {
-    color: '#62B8FF',
-    fontSize: 15,
-    fontWeight: '800',
-    letterSpacing: 4,
-    marginBottom: 14,
-  },
-  heroTitle: {
+  heading: {
     color: '#FFFFFF',
-    fontSize: 54,
-    lineHeight: 62,
+    fontSize: 38,
     fontWeight: '900',
-    letterSpacing: -1,
+    letterSpacing: -0.5,
   },
-  heroCopy: {
+  subheading: {
     color: '#C2D5EC',
-    fontSize: 20,
-    marginTop: 14,
+    fontSize: 17,
+    marginTop: 6,
   },
   focusPill: {
-    alignSelf: 'flex-start',
+    maxWidth: 420,
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 24,
+    marginBottom: 3,
     paddingHorizontal: 15,
     paddingVertical: 10,
     borderRadius: 22,
-    backgroundColor: 'rgba(9, 31, 62, 0.78)',
+    backgroundColor: 'rgba(9, 31, 62, 0.82)',
     borderWidth: 1,
-    borderColor: 'rgba(100, 173, 255, 0.35)',
+    borderColor: 'rgba(100, 173, 255, 0.42)',
   },
   pillDot: {
     width: 7,
@@ -186,58 +134,25 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   focusText: {
-    color: '#D9E9FB',
+    color: '#E5F1FF',
     fontSize: 14,
   },
-  exploreHeader: {
+  tileGrid: {
+    flex: 1,
     flexDirection: 'row',
-    alignItems: 'flex-end',
+    flexWrap: 'wrap',
+    alignContent: 'center',
+    alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 16,
+    rowGap: 22,
   },
-  sectionTitle: {
-    color: '#FFFFFF',
-    fontSize: 22,
-    fontWeight: '900',
-    letterSpacing: 2,
-  },
-  sectionCopy: {
-    color: '#9EB7D6',
-    fontSize: 14,
-    marginTop: 5,
+  remoteHintRow: {
+    alignItems: 'flex-end',
+    marginTop: 18,
   },
   remoteHint: {
-    color: '#83A2C6',
+    color: '#A7C1E0',
     fontSize: 11,
-    letterSpacing: 1.5,
-    marginBottom: 3,
-  },
-  tileRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    minHeight: 158,
-  },
-  footer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginTop: 22,
-  },
-  footerBrand: {
-    color: '#75BFFF',
-    fontSize: 12,
-    fontWeight: '900',
-    letterSpacing: 2,
-  },
-  footerCopy: {
-    color: '#A8BED9',
-    fontSize: 11,
-    letterSpacing: 2,
-  },
-  footerVersion: {
-    color: '#718EAF',
-    fontSize: 10,
     letterSpacing: 1.5,
   },
 });
