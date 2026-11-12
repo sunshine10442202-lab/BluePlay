@@ -13,18 +13,21 @@ const defaultProps = {
 };
 
 describe('Tile', () => {
-  it('renders with default style', () => {
+  it('renders with the default BluePlay style', () => {
     const screen = render(<Tile {...defaultProps} />);
     const tile = screen.getByTestId('test-tile');
     const style = Object.assign({}, ...[tile.props.style].flat());
+
     expect(screen.getByText('Test Tile')).toBeTruthy();
-    expect(style.backgroundColor).toBe('#0074B8');
+    expect(style.backgroundColor).toBe('rgba(10, 27, 52, 0.88)');
   });
 
-  it('applies focused style', () => {
+  it('applies the blue focused style', () => {
     const screen = render(<Tile {...defaultProps} isFocused={true} />);
     const tile = screen.getByTestId('test-tile');
     const style = Object.assign({}, ...[tile.props.style].flat());
-    expect(style.backgroundColor).toBe('#FF6200');
+
+    expect(style.backgroundColor).toBe('rgba(15, 65, 117, 0.96)');
+    expect(style.borderColor).toBe('#55B4FF');
   });
 });
