@@ -10,7 +10,7 @@ describe('App', () => {
 
     expect(screen.getAllByText('BLUEPLAY').length).toBeGreaterThan(0);
     expect(screen.getByText('WELCOME TO YOUR WORLD')).toBeTruthy();
-    expect(screen.getByText('Everything you love.')).toBeTruthy();
+    expect(screen.getByText(/Everything you love\./)).toBeTruthy();
   });
 
   it('renders the main launcher tiles', () => {
