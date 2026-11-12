@@ -5,20 +5,39 @@ import * as React from 'react';
 import {App} from '../src/App';
 
 describe('App', () => {
-  it('renders the BluePlay home screen', () => {
+  it('renders the direct app launcher without category folders or top-left branding', () => {
     const screen = render(<App />);
 
-    expect(screen.getAllByText('BLUEPLAY').length).toBeGreaterThan(0);
-    expect(screen.getByText('WELCOME TO YOUR WORLD')).toBeTruthy();
-    expect(screen.getByText(/Everything you love\./)).toBeTruthy();
+    expect(screen.getByText('Your apps')).toBeTruthy();
+    expect(screen.queryByText('BLUEPLAY')).toBeNull();
+    expect(screen.queryByText('EXPLORE BLUEPLAY')).toBeNull();
+    expect(screen.queryByText('Games')).toBeNull();
+    expect(screen.queryByText('Apps')).toBeNull();
+    expect(screen.queryByText('Media')).toBeNull();
+    expect(screen.queryByText('Favourites')).toBeNull();
   });
 
-  it('renders the main launcher tiles', () => {
+  it('renders all requested app tiles directly on the home screen', () => {
     const screen = render(<App />);
 
-    expect(screen.getByTestId('tile-games')).toBeTruthy();
-    expect(screen.getByTestId('tile-apps')).toBeTruthy();
-    expect(screen.getByTestId('tile-media')).toBeTruthy();
-    expect(screen.getByTestId('tile-favourites')).toBeTruthy();
+    [
+      'YouTube',
+      'JioHotstar',
+      'Netflix',
+      'Prime Video',
+      'Bitchord',
+      'NetMirror',
+      'AniFam',
+      'Xbox Cloud Gaming',
+      'Settings',
+      'Downloader',
+      'Crunchyroll',
+      'PPSSPP',
+    ].forEach(label => expect(screen.getByText(label)).toBeTruthy());
+  });
+
+  it('starts focus on YouTube', () => {
+    const screen = render(<App />);
+    expect(screen.getByTestId('tile-youtube')).toBeTruthy();
   });
 });
