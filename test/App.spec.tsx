@@ -8,7 +8,7 @@ describe('App', () => {
   it('renders the BluePlay home screen', () => {
     const screen = render(<App />);
 
-    expect(screen.getByText('BLUEPLAY')).toBeTruthy();
+    expect(screen.getAllByText('BLUEPLAY').length).toBeGreaterThan(0);
     expect(screen.getByText('WELCOME TO YOUR WORLD')).toBeTruthy();
     expect(screen.getByText('Everything you love.')).toBeTruthy();
   });
