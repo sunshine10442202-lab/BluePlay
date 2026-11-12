@@ -1,7 +1,5 @@
 import React from 'react';
 import {
-  Image,
-  ImageSourcePropType,
   Pressable,
   StyleSheet,
   Text,
@@ -10,7 +8,7 @@ import {
 
 export interface TileProps {
   label: string;
-  icon: ImageSourcePropType;
+  logo: string;
   isFocused: boolean;
   onFocus: () => void;
   onBlur?: () => void;
@@ -21,7 +19,7 @@ export interface TileProps {
 
 export const Tile = ({
   label,
-  icon,
+  logo,
   isFocused,
   onFocus,
   onBlur,
@@ -37,64 +35,68 @@ export const Tile = ({
     accessibilityLabel={accessibilityLabel}
     accessibilityRole="button"
     hasTVPreferredFocus={hasTVPreferredFocus}>
-    <View style={[styles.iconFrame, isFocused && styles.iconFrameFocused]}>
-      <Image source={icon} style={styles.icon} resizeMode="contain" accessible={false} />
+    <View style={[styles.logoFrame, isFocused && styles.logoFrameFocused]}>
+      <Text style={styles.logo}>{logo}</Text>
     </View>
-    <Text style={[styles.label, isFocused && styles.labelFocused]}>{label}</Text>
-    <Text style={[styles.chevron, isFocused && styles.chevronFocused]}>›</Text>
+    <Text style={[styles.label, isFocused && styles.labelFocused]} numberOfLines={1}>
+      {label}
+    </Text>
   </Pressable>
 );
 
 const styles = StyleSheet.create({
   tile: {
-    width: 220,
-    height: 148,
-    borderRadius: 18,
-    backgroundColor: 'rgba(10, 27, 52, 0.88)',
+    width: '15.6%',
+    minWidth: 190,
+    height: 184,
+    borderRadius: 20,
+    backgroundColor: 'rgba(8, 22, 43, 0.84)',
     borderWidth: 2,
-    borderColor: 'rgba(118, 159, 207, 0.28)',
-    paddingHorizontal: 17,
-    paddingVertical: 13,
-    marginHorizontal: 8,
-    flexDirection: 'row',
+    borderColor: 'rgba(180, 207, 239, 0.22)',
+    paddingHorizontal: 12,
+    paddingVertical: 12,
     alignItems: 'center',
+    justifyContent: 'center',
+    marginHorizontal: 3,
   },
   focused: {
     borderColor: '#55B4FF',
-    backgroundColor: 'rgba(15, 65, 117, 0.96)',
-    transform: [{scale: 1.06}],
+    backgroundColor: 'rgba(18, 65, 115, 0.96)',
+    shadowColor: '#168BFF',
+    shadowOffset: {width: 0, height: 0},
+    shadowOpacity: 0.95,
+    shadowRadius: 18,
+    elevation: 12,
+    transform: [{scale: 1.055}],
   },
-  iconFrame: {
-    width: 76,
-    height: 76,
-    borderRadius: 16,
-    backgroundColor: 'rgba(255, 255, 255, 0.08)',
+  logoFrame: {
+    width: 88,
+    height: 88,
+    borderRadius: 20,
+    backgroundColor: 'rgba(255, 255, 255, 0.12)',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.12)',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  iconFrameFocused: {
-    backgroundColor: 'rgba(68, 165, 255, 0.18)',
+  logoFrameFocused: {
+    backgroundColor: 'rgba(78, 174, 255, 0.22)',
+    borderColor: 'rgba(255, 255, 255, 0.65)',
   },
-  icon: {
-    width: 48,
-    height: 48,
+  logo: {
+    color: '#FFFFFF',
+    fontSize: 29,
+    fontWeight: '900',
+    letterSpacing: -1,
   },
   label: {
-    flex: 1,
-    color: '#D7E5F5',
-    fontSize: 18,
+    color: '#DCEBFA',
+    fontSize: 15,
     fontWeight: '800',
-    marginLeft: 12,
+    marginTop: 13,
+    maxWidth: '100%',
   },
   labelFocused: {
-    color: '#FFFFFF',
-  },
-  chevron: {
-    color: '#7898BB',
-    fontSize: 27,
-    marginLeft: 3,
-  },
-  chevronFocused: {
     color: '#FFFFFF',
   },
 });

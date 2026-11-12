@@ -6,28 +6,30 @@ import {Tile} from '../src/components/Tile';
 
 const defaultProps = {
   label: 'Test Tile',
-  icon: {uri: 'mock-icon'},
+  logo: 'T',
   isFocused: false,
   onFocus: jest.fn(),
   testID: 'test-tile',
 };
 
 describe('Tile', () => {
-  it('renders with the default BluePlay style', () => {
+  it('renders an app logo and label', () => {
     const screen = render(<Tile {...defaultProps} />);
     const tile = screen.getByTestId('test-tile');
     const style = Object.assign({}, ...[tile.props.style].flat());
 
     expect(screen.getByText('Test Tile')).toBeTruthy();
-    expect(style.backgroundColor).toBe('rgba(10, 27, 52, 0.88)');
+    expect(screen.getByText('T')).toBeTruthy();
+    expect(style.backgroundColor).toBe('rgba(8, 22, 43, 0.84)');
   });
 
-  it('applies the blue focused style', () => {
+  it('applies a glowing blue focus style', () => {
     const screen = render(<Tile {...defaultProps} isFocused={true} />);
     const tile = screen.getByTestId('test-tile');
     const style = Object.assign({}, ...[tile.props.style].flat());
 
-    expect(style.backgroundColor).toBe('rgba(15, 65, 117, 0.96)');
+    expect(style.backgroundColor).toBe('rgba(18, 65, 115, 0.96)');
     expect(style.borderColor).toBe('#55B4FF');
+    expect(style.shadowColor).toBe('#168BFF');
   });
 });
