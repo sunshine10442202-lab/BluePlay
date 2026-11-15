@@ -3,7 +3,6 @@ import {
   Pressable,
   StyleSheet,
   Text,
-  View,
 } from 'react-native';
 
 export interface TileProps {
@@ -32,12 +31,20 @@ export const Tile = ({
     onFocus={onFocus}
     onBlur={onBlur}
     testID={testID}
-    accessibilityLabel={accessibilityLabel}
+    accessibilityLabel={accessibilityLabel || label}
     accessibilityRole="button"
     hasTVPreferredFocus={hasTVPreferredFocus}>
-    <View style={[styles.logoFrame, isFocused && styles.logoFrameFocused]}>
-      <Text style={styles.logo}>{logo}</Text>
-    </View>
+    <Text
+      style={[
+        styles.logo,
+        logo.length > 11 && styles.longLogo,
+        logo.length > 7 && logo.length <= 11 && styles.mediumLogo,
+        isFocused && styles.logoFocused,
+      ]}
+      numberOfLines={2}
+      adjustsFontSizeToFit>
+      {logo}
+    </Text>
     <Text style={[styles.label, isFocused && styles.labelFocused]} numberOfLines={1}>
       {label}
     </Text>
@@ -47,54 +54,57 @@ export const Tile = ({
 const styles = StyleSheet.create({
   tile: {
     width: '15.6%',
-    minWidth: 190,
-    height: 184,
-    borderRadius: 20,
-    backgroundColor: 'rgba(8, 22, 43, 0.84)',
-    borderWidth: 2,
-    borderColor: 'rgba(180, 207, 239, 0.22)',
-    paddingHorizontal: 12,
-    paddingVertical: 12,
+    minWidth: 0,
+    height: 148,
+    borderRadius: 23,
+    backgroundColor: 'rgba(5, 10, 24, 0.88)',
+    borderWidth: 1.5,
+    borderColor: 'rgba(145, 194, 255, 0.34)',
+    paddingHorizontal: 9,
+    paddingVertical: 15,
     alignItems: 'center',
     justifyContent: 'center',
     marginHorizontal: 3,
   },
   focused: {
-    borderColor: '#55B4FF',
-    backgroundColor: 'rgba(18, 65, 115, 0.96)',
-    shadowColor: '#168BFF',
+    borderColor: '#50D9FF',
+    borderWidth: 3,
+    backgroundColor: 'rgba(5, 35, 83, 0.96)',
+    shadowColor: '#18BFFF',
     shadowOffset: {width: 0, height: 0},
-    shadowOpacity: 0.95,
-    shadowRadius: 18,
-    elevation: 12,
-    transform: [{scale: 1.055}],
-  },
-  logoFrame: {
-    width: 88,
-    height: 88,
-    borderRadius: 20,
-    backgroundColor: 'rgba(255, 255, 255, 0.12)',
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.12)',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  logoFrameFocused: {
-    backgroundColor: 'rgba(78, 174, 255, 0.22)',
-    borderColor: 'rgba(255, 255, 255, 0.65)',
+    shadowOpacity: 1,
+    shadowRadius: 19,
+    elevation: 14,
+    transform: [{scale: 1.045}],
   },
   logo: {
     color: '#FFFFFF',
-    fontSize: 29,
+    fontSize: 27,
     fontWeight: '900',
-    letterSpacing: -1,
+    letterSpacing: -0.8,
+    textAlign: 'center',
+    width: '100%',
+    minHeight: 42,
+    textAlignVertical: 'center',
+  },
+  mediumLogo: {
+    fontSize: 22,
+    letterSpacing: -0.5,
+  },
+  longLogo: {
+    fontSize: 17,
+    letterSpacing: -0.2,
+  },
+  logoFocused: {
+    color: '#FFFFFF',
   },
   label: {
     color: '#DCEBFA',
-    fontSize: 15,
-    fontWeight: '800',
-    marginTop: 13,
+    fontSize: 12,
+    fontWeight: '700',
+    marginTop: 9,
     maxWidth: '100%',
+    textAlign: 'center',
   },
   labelFocused: {
     color: '#FFFFFF',

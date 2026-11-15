@@ -12,6 +12,10 @@ import {tiles} from './data/tiles';
 export const App = () => {
   const [focusedTileId, setFocusedTileId] = useState('youtube');
   const focusedTile = tiles.find(tile => tile.id === focusedTileId);
+  const currentTime = new Date().toLocaleTimeString([], {
+    hour: 'numeric',
+    minute: '2-digit',
+  });
 
   return (
     <ImageBackground
@@ -19,23 +23,14 @@ export const App = () => {
       style={styles.background}
       resizeMode="cover">
       <View style={styles.tint} />
-      <View style={styles.blueGlow} />
-
       <View style={styles.page}>
         <View style={styles.topBar}>
-          <Text style={styles.topTag}>MADE FOR THE BIG SCREEN</Text>
-        </View>
-
-        <View style={styles.headingRow}>
-          <View>
-            <Text style={styles.heading}>Your apps</Text>
-            <Text style={styles.subheading}>Everything you enjoy, all in one place.</Text>
-          </View>
-          <View style={styles.focusPill}>
-            <View style={styles.pillDot} />
-            <Text style={styles.focusText}>
-              {focusedTile?.description || 'Choose an app'}
-            </Text>
+          <View style={styles.topActions}>
+            <Text style={styles.topIcon} accessibilityLabel="Search">⌕</Text>
+            <View style={styles.separator} />
+            <Text style={styles.topIcon} accessibilityLabel="Settings">⚙</Text>
+            <View style={styles.separator} />
+            <Text style={styles.clock}>{currentTime}</Text>
           </View>
         </View>
 
@@ -54,7 +49,10 @@ export const App = () => {
           ))}
         </TVFocusGuideView>
 
-        <View style={styles.remoteHintRow}>
+        <View style={styles.bottomBar}>
+          <Text style={styles.nowPlaying}>
+            {focusedTile?.description || 'Choose an app'}
+          </Text>
           <Text style={styles.remoteHint}>USE YOUR REMOTE TO NAVIGATE</Text>
         </View>
       </View>
@@ -69,73 +67,43 @@ const styles = StyleSheet.create({
   },
   tint: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(3, 10, 27, 0.48)',
-  },
-  blueGlow: {
-    position: 'absolute',
-    left: -180,
-    top: 150,
-    width: 700,
-    height: 500,
-    borderRadius: 350,
-    backgroundColor: 'rgba(0, 116, 255, 0.16)',
+    backgroundColor: 'rgba(2, 8, 28, 0.28)',
   },
   page: {
     flex: 1,
-    paddingHorizontal: 68,
-    paddingTop: 34,
-    paddingBottom: 28,
+    paddingHorizontal: 54,
+    paddingTop: 22,
+    paddingBottom: 20,
   },
   topBar: {
-    height: 42,
-    alignItems: 'flex-end',
-    justifyContent: 'center',
-  },
-  topTag: {
-    color: '#B7D2F1',
-    fontSize: 12,
-    letterSpacing: 2,
-  },
-  headingRow: {
+    height: 62,
     flexDirection: 'row',
-    alignItems: 'flex-end',
-    justifyContent: 'space-between',
-    marginTop: 24,
-    marginBottom: 26,
+    alignItems: 'flex-start',
+    justifyContent: 'flex-end',
   },
-  heading: {
-    color: '#FFFFFF',
-    fontSize: 38,
-    fontWeight: '900',
-    letterSpacing: -0.5,
-  },
-  subheading: {
-    color: '#C2D5EC',
-    fontSize: 17,
-    marginTop: 6,
-  },
-  focusPill: {
-    maxWidth: 420,
+  topActions: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 3,
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    borderRadius: 22,
-    backgroundColor: 'rgba(9, 31, 62, 0.82)',
-    borderWidth: 1,
-    borderColor: 'rgba(100, 173, 255, 0.42)',
+    height: 42,
   },
-  pillDot: {
-    width: 7,
-    height: 7,
-    borderRadius: 4,
-    backgroundColor: '#39A8FF',
-    marginRight: 10,
+  topIcon: {
+    color: '#FFFFFF',
+    fontSize: 31,
+    fontWeight: '600',
+    paddingHorizontal: 16,
   },
-  focusText: {
-    color: '#E5F1FF',
-    fontSize: 14,
+  separator: {
+    width: 1,
+    height: 27,
+    backgroundColor: 'rgba(255,255,255,0.72)',
+  },
+  clock: {
+    color: '#FFFFFF',
+    fontSize: 21,
+    fontWeight: '700',
+    marginLeft: 18,
+    minWidth: 92,
+    textAlign: 'right',
   },
   tileGrid: {
     flex: 1,
@@ -144,15 +112,23 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     alignItems: 'center',
     justifyContent: 'space-between',
-    rowGap: 22,
+    rowGap: 24,
   },
-  remoteHintRow: {
-    alignItems: 'flex-end',
-    marginTop: 18,
+  bottomBar: {
+    minHeight: 32,
+    marginTop: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  nowPlaying: {
+    color: '#D8E9FF',
+    fontSize: 13,
+    fontWeight: '600',
   },
   remoteHint: {
-    color: '#A7C1E0',
+    color: '#D8E9FF',
     fontSize: 11,
-    letterSpacing: 1.5,
+    letterSpacing: 1.2,
   },
 });
