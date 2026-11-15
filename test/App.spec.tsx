@@ -38,7 +38,7 @@ describe('App', () => {
       'Xstream',
       'Sun NXT',
       'Red Ball 4',
-   ].forEach(label => expect(screen.getByText(label)).toBeTruthy());
+    ].forEach(label => expect(screen.getAllByText(label).length).toBeGreaterThan(0));
    })
 
   it('starts focus on YouTube', () => {
