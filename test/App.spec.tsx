@@ -38,8 +38,8 @@ describe('App', () => {
       'Xstream',
       'Sun NXT',
       'Red Ball 4',
-    ].forEach(label => expect(screen.getByText(label)).toBeTruthy());
-  });
+   ].forEach(label => expect(screen.getByText(label)).toBeTruthy());
+   })
 
   it('starts focus on YouTube', () => {
     const screen = render(<App />);
