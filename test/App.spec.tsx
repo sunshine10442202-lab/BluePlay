@@ -5,21 +5,20 @@ import * as React from 'react';
 import {App} from '../src/App';
 
 describe('App', () => {
-  it('renders the direct app launcher without category folders or top-left branding', () => {
+  it('renders the Apple TV-style home screen without category folders', () => {
     const screen = render(<App />);
 
-    expect(screen.getByText('Your apps')).toBeTruthy();
-    expect(screen.queryByText('BLUEPLAY')).toBeNull();
-    expect(screen.queryByText('EXPLORE BLUEPLAY')).toBeNull();
+    expect(screen.getByText('YouTube')).toBeTruthy();
+    expect(screen.getByText('USE YOUR REMOTE TO NAVIGATE')).toBeTruthy();
+    expect(screen.queryByText('Your apps')).toBeNull();
     expect(screen.queryByText('Games')).toBeNull();
     expect(screen.queryByText('Apps')).toBeNull();
     expect(screen.queryByText('Media')).toBeNull();
     expect(screen.queryByText('Favourites')).toBeNull();
   });
 
-  it('renders all requested app tiles directly on the home screen', () => {
+  it('renders all 18 requested app tiles directly on the home screen', () => {
     const screen = render(<App />);
-
     [
       'YouTube',
       'JioHotstar',
@@ -33,6 +32,12 @@ describe('App', () => {
       'Downloader',
       'Crunchyroll',
       'PPSSPP',
+      'JioTV',
+      'Browser',
+      'Z5',
+      'Xstream',
+      'Sun NXT',
+      'Red Ball 4',
     ].forEach(label => expect(screen.getByText(label)).toBeTruthy());
   });
 
